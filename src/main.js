@@ -1,4 +1,5 @@
 import { World } from "./World/World";
+import * as THREE from 'three';
 
 // Array of horsement texts
 /*

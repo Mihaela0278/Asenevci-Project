@@ -20,6 +20,20 @@ export class World {
     this.renderer = createRenderer();
     this.loop = new Loop(this.camera, this.renderer, this.scene);
 
+    const loader = new THREE.CubeTextureLoader();
+    const skybox = loader.load([
+      '/textures/skybox/cube_right.png',
+      '/textures/skybox/cube_left.png',
+      '/textures/skybox/cube_up.png',
+      '/textures/skybox/cube_down.png',
+      '/textures/skybox/cube_back.png',
+      '/textures/skybox/cube_front.png',
+    ]);
+    this.scene.background = skybox;
+
+    this.renderer = createRenderer();
+    this.loop = new Loop(this.camera, this.renderer, this.scene); // do tuk e koda za skybox
+
     const controls = createControls(this.camera, this.renderer.domElement);
 
     createHorsemen((horsemen) => {
