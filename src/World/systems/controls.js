@@ -8,20 +8,7 @@ export function createControls(camera, canvas) {
   controls.minDistance = 0.3;
   controls.maxDistance = 4;
 
-  let lastUpdateTime = 0;
-  const frameInterval = 1000 / 30; // Target ~30 FPS
-
-  controls.tick = (delta) => {
-    const now = performance.now();
-    if (now - lastUpdateTime >= frameInterval) {
-      controls.update();
-      lastUpdateTime = now;
-      console.log("position", camera.position);
-      const direction = new THREE.Vector3();
-      console.log("direction", camera.getWorldDirection(direction));
-
-    }
-  };
+  controls.enablePan = false;
 
   return controls;
 }

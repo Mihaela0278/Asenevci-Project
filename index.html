@@ -12,23 +12,72 @@
       type="image/x-icon"
     />
 
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/simplebar@latest/dist/simplebar.css"
+    />
+
     <link rel="stylesheet" href="./src/style.css" />
+
+    <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
 
     <script type="module" src="./src/main.js"></script>
   </head>
 
   <body>
-    <h1>Horsemen</h1>
+    <button
+      style="
+        all: unset;
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
+        cursor: pointer;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+      "
+    >
+      Horsemen
+    </button>
 
-    <button id="horsemen1">Цар Петър</button>
-    <button id="horsemen2">Цар Асен</button>
-    <button id="horsemen3">Цар Иван Асен II</button>
-    <button id="horsemen4">цар Калоян</button>
+    <div class="action-buttons">
+      <button id="horsemen1">Цар Петър IV</button>
+      <button id="horsemen2">Цар Иван Асен I</button>
+      <button id="horsemen3">Цар Калоян</button>
+      <button id="horsemen4">Цар Иван Асен II</button>
+    </div>
+
+    <div id="info">
+      <div class="info-content">
+        <button id="close-btn" aria-label="Close">
+          <img src="/public/pictures/close.png" alt="" />
+        </button>
+        <button id="minimize">
+          <img src="/public/pictures/arrow-up.png" alt="" />
+        </button>
+
+        <div class="info-scroll" data-simplebar>
+          <h2 class="info-title">Заглавие</h2>
+
+          <img class="info-images" src="" alt="Цар" />
+          <h3 class="info-years"></h3>
+          <p class="info-text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
+            ducimus earum dolorum. Nihil eveniet facilis rem dolores id eaque
+            cum nam impedit, numquam dolorem recusandae saepe dicta doloremque.
+            Vel, voluptas?
+          </p>
+        </div>
+        <button id="maximize">
+          <img src="/public/pictures/arrow-down.png" alt="arrow down" />
+        </button>
+      </div>
+    </div>
 
     <div id="scene-container">
       <!-- Our <canvas> will be inserted here -->
     </div>
-
-    
   </body>
 </html>

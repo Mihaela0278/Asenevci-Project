@@ -1,3 +1,8 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
 body {
   /* remove margins and scroll bars */
   margin: 0;
@@ -34,36 +39,239 @@ h1 {
   background-color: rgb(36, 35, 35);
 }
 
-button {
-  z-index: 20;
+.action-buttons {
   position: fixed;
   bottom: 20px;
-  background-color: #4CAF50;
+  margin-left: 5%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  z-index: 20;
+}
+
+.action-buttons button {
+  background-color: rgba(255, 255, 255, 0.235);
+  backdrop-filter: blur(10px);
   color: white;
   border: none;
   padding: 10px 20px;
-  margin: 5px;
   cursor: pointer;
   border-radius: 5px;
   font-size: 14px;
+  transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #45a049;
+.action-buttons button:hover {
+  background-color: rgba(255, 255, 255, 0.427);
 }
 
-#horsemen1{
-  left: 6%;
+#info {
+  display: none;
+  position: fixed;
+  z-index: 20;
+  top: 6%;
+  right: 3%;
+  width: 100%;
+  height: 85vh;
+  max-width: 450px;
 }
 
-#horsemen2{
-  left: 14%;
+.info-content {
+  position: relative;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-size: 17px;
+  border-radius: 21px;
+  border: 1px solid #ffffff5e;
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.1) 2.84%,
+    rgba(255, 255, 255, 0.4) 98.5%
+  );
+  background-clip: padding-box;
+  box-shadow: 0px 4px 24px -1px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(20px);
+  padding: 10px 10px 15px 15px;
+  /* overflow: hidden; тук блокираме скрол на основния контейнер */
 }
 
-#horsemen3{
-  left: 22%;
+.info-scroll {
+  position: relative;
+  overflow-y: auto;
+  max-height: 100%;
+  padding-top: 10px; /* малко разстояние от бутона */
+  top: 18px;
+  bottom: 18px;
+  left: 7px;
+  margin-right: 5px;
+  scroll-behavior: smooth;
 }
 
-#horsemen4{
-  left: 33%;
+.info-scroll .simplebar-content {
+  margin-right: 10px;
+  padding: 0;
+}
+
+/* === SimpleBar custom scrollbar applied to .info-scroll === */
+.info-scroll .simplebar-track.simplebar-vertical {
+  top: 15px !important; /*42*/
+  bottom: 18px !important;
+  width: 13px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  margin: 0 !important;
+  cursor: pointer;
+}
+
+.info-scroll .simplebar-scrollbar {
+  top: 0 !important;
+  bottom: 0 !important;
+}
+
+.info-scroll .simplebar-scrollbar:before {
+  height: auto !important;
+  min-height: 20px !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-radius: 12px !important;
+}
+
+.info-scroll .simplebar-scrollbar:hover:before {
+  background: rgba(255, 255, 255, 1) !important;
+}
+
+/* === WebKit fallback (optional but nice for devs without SimpleBar) === */
+.info-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.info-scroll::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 12px;
+  margin: 4px 0;
+}
+
+.info-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  min-height: 24px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+#close-btn {
+  position: absolute;
+  top: 10px;
+  right: 12.5px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#close-btn img {
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+#close-btn:hover img {
+  opacity: 0.7;
+  transform: scale(1);
+}
+
+.info-title {
+  margin-bottom: 20px;
+}
+
+.info-years {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.info-images {
+  display: block;
+  margin: 0 auto 7% auto;
+  width: 100%;
+  max-width: 150px;
+  margin-bottom: 7%;
+  border-radius: 5px;
+}
+
+.info-text {
+  text-align: justify;
+  line-height: 1.45;
+  margin-bottom: 10px;
+  padding: 5px 25px 15px 10px;
+  white-space: pre-wrap;
+}
+
+.simplebar-mask .simplebar-content {
+  padding: 0;
+}
+
+#minimize {
+  all: unset;
+  display: none;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+#maximize {
+  all: unset;
+  display: none;
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  padding: 0px;
+}
+
+@media (max-width: 768px) {
+  .action-buttons {
+    margin: 0;
+    bottom: 10px;
+    left: 0px;
+    right: 0px;
+    align-items: center;
+    justify-content: center;
+    gap:5px;
+    flex-wrap: wrap;
+
+    button {
+      width: 160px;
+    }
+  }
+
+  #info {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    transition: transform 500ms ease-in;
+  }
+
+  .info-content {
+    height: 102%;
+    border-radius: 0;
+  }
+
+  #minimize {
+    display: block;
+  }
+
+  .info-scroll {
+    height: 90%;
+  }
+
+  #maximize {
+  display: block;
+}
 }

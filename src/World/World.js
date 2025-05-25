@@ -7,12 +7,16 @@ import { createRenderer } from "./systems/renderer";
 import { Resizer } from "./systems/Resizer";
 import { createHorsemen } from "./components/horsemen";
 import * as THREE from "three";
+import { DAFAULT_CAMERA_POSITION } from "./components/camera";
+import { animateVector } from "./Animator";
 
 export class World {
   camera;
   scene;
   renderer;
   loop;
+  controls;
+  lookingAt = new THREE.Vector3(0, 0, 0)
 
   constructor(container) {
     this.camera = createCamera();
@@ -22,19 +26,19 @@ export class World {
 
     const loader = new THREE.CubeTextureLoader();
     const skybox = loader.load([
-      '/textures/skybox/cube_right.png',
-      '/textures/skybox/cube_left.png',
+      '/textures/skybox/cube_right.png', //cube_right.png
+      '/textures/skybox/scene01495 1.png', // cube_back.png
       '/textures/skybox/cube_up.png',
       '/textures/skybox/cube_down.png',
-      '/textures/skybox/cube_back.png',
-      '/textures/skybox/cube_front.png',
+      '/textures/skybox/scene00186.png', // cube_front.png 
+      '/textures/skybox/scene01080 1.png', //cube_left.png
     ]);
     this.scene.background = skybox;
 
     this.renderer = createRenderer();
     this.loop = new Loop(this.camera, this.renderer, this.scene); // do tuk e koda za skybox
 
-    const controls = createControls(this.camera, this.renderer.domElement);
+    this.controls = createControls(this.camera, this.renderer.domElement);
 
     createHorsemen((horsemen) => {
       horsemen.scene.traverse((child) => {
@@ -48,7 +52,7 @@ export class World {
 
     container.append(this.renderer.domElement);
 
-    this.loop.addUpdatable(controls);
+    // this.loop.addUpdatable(controls);
 
     const { mainLight } = createLights();
 
@@ -69,47 +73,54 @@ export class World {
     this.loop.stop();
   }
 
+  toggleControls(enable) {
+    if (enable !== undefined) {
+      this.controls.enabled = enable
+    } else {
+      this.controls.enable = !this.controls.enable;
+    }
+  }
+
   setCameraPosition(horsemanIndex) {
     const positions = [
-      new THREE.Vector3(1.6537863139839808,
-        0.7106559638269124,
-        0.439234689739234), // Back view Third Horsemen Цар Петър
+      new THREE.Vector3(1.65, 0.71, 0.43), // Back view Third Horsemen Цар Петър
 
-      new THREE.Vector3(1.3937570918219092,
-        0.7995319857446552,
-        0.12414942352613625), // Right view Second Horsemen Цар Асен
+      new THREE.Vector3(1.39, 0.79, 0.12), // Right view Second Horsemen Цар Асен
 
-      new THREE.Vector3(-1.7469986790948584,
-        0.742849657317494,
-        -0.4626950965270068), // Left view Fourth Horsemen Цар Иван Асен II
+      new THREE.Vector3(-1.74, 0.74, -0.46), // Left view Fourth Horsemen Цар Иван Асен II
 
-      new THREE.Vector3(-1.5132431018612618,
-        0.6999666036666169,
-        -0.392695096399244) // Front view First Horsemen Цар Калоян
+      new THREE.Vector3(-1.51, 0.69, -0.39), // Front view First Horsemen Цар Калоян
+
+      new THREE.Vector3(...DAFAULT_CAMERA_POSITION)
+
     ];
 
     const directions = [
-      new THREE.Vector3(-0.6444382833574543,
-        0.260378497422286063,
-        -0.9622688082247131), // Third Horsemen Цар Петър
+      new THREE.Vector3(-0.64, 0.26, -0.96), // Third Horsemen Цар Петър
 
 
-      new THREE.Vector3(-0.5136425262826265,
-        0.1923445821909482,
-        0.2965422345678124), // Second Horsemen Цар Асен
+      new THREE.Vector3(-0.51, 0.19, 0.29), // Second Horsemen Цар Асен
 
-      new THREE.Vector3(0.2981704523992279,
-        0.32037849742228607,
-        -0.4031913956426813392), // Fourth Horsemen Цар Иван Асен II
+      new THREE.Vector3(0.29, 0.32, -0.40), // Fourth Horsemen Цар Иван Асен II
 
-      new THREE.Vector3(1.5029573745026885,
-        -0.19137849742228608,
-        1.99564695096399244) //First Horsemen Цар Калоян
+      new THREE.Vector3(1.50, -0.19, 1.99), //First Horsemen Цар Калоян
+
+      new THREE.Vector3(0, 0, 0)
     ]
 
     if (horsemanIndex >= 0 && horsemanIndex < positions.length) {
-      this.camera.position.copy(positions[horsemanIndex]);
-      this.camera.lookAt(directions[horsemanIndex]);
+      // this.camera.position.copy(positions[horsemanIndex]);
+      // this.camera.lookAt(directions[horsemanIndex]);
+
+      animateVector(this.camera.position, positions[horsemanIndex], (newPos) => {
+        this.camera.position.copy(newPos);
+      }, 2)
+      animateVector(this.lookingAt, directions[horsemanIndex], (newPos) => {
+        this.camera.lookAt(newPos)
+      }, 2)
+
+      this.lookingAt = directions[horsemanIndex];
+
     }
   }
 }
