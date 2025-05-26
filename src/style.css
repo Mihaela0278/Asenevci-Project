@@ -253,6 +253,10 @@ h1 {
 }
 
 @media (max-width: 768px) {
+  #monument-title {
+    font-size: 16px;
+  }
+
   .action-buttons {
     margin: 0;
     bottom: 10px;
@@ -268,7 +272,7 @@ h1 {
     }
   }
 
-  #info {
+  #info, #info.info--right {
     left: 0;
     top: 0;
     width: 100%;
