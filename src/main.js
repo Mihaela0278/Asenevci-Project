@@ -1,5 +1,6 @@
 import { World } from "./World/World";
 import * as THREE from 'three';
+import { DAFAULT_CAMERA_POSITION } from "./World/components/camera";
 
 // Array of hormsement texts
 const horsemenInfo = {
@@ -93,7 +94,7 @@ function main() {
   const fourthHorsemen = document.querySelector('#horsemen4');
 
   // Information menu
-  const infoContent = document.querySelector(".info-content");
+  const monumentTitle = document.querySelector("#monument-title");
   const infoContainer = document.querySelector("#info")
   const closeButton = document.querySelector("#close-btn");
   const infoTitle = document.querySelector(".info-title");
@@ -102,6 +103,10 @@ function main() {
   const infoText = document.querySelector(".info-text");
   const minimize = document.querySelector("#minimize");
   const maximize = document.querySelector("#maximize");
+
+  const defaultTitle = infoTitle.textContent;
+  const defaultText = infoText.innerHTML;
+
   // let isVisible = true;
 
   // document select card
@@ -147,33 +152,53 @@ function main() {
     showInfo("horsemen4");
   });
 
+  monumentTitle.addEventListener("click", () => {
+    world.setCameraPosition(4);
+    showInfo();
+  })
+
 
   function showInfo(id) {
-    const data = horsemenInfo[id];
     maximizeContent();
-    if (!data) return;
-    infoTitle.textContent = data.title;
-    infoYears.textContent = data.years;
-    infoText.textContent = data.text;
 
-    if (data.images) {
-      infoImages.src = data.images;
-      infoImages.style.display = "block";
+    if (id) {
+      infoContainer.classList.remove('info--right');
+
+      const data = horsemenInfo[id];
+      if (!data) return;
+      infoTitle.textContent = data.title;
+      infoYears.textContent = data.years;
+      infoText.textContent = data.text;
+
+      if (data.images) {
+        infoImages.src = data.images;
+        infoImages.style.display = "block";
+      } else {
+        infoImages.style.display = "none";
+      }
+
+      infoYears.style.display = "block";
+
     } else {
-      infoImages.style.display = "none";
-    }
+      infoContainer.classList.add('info--right');
 
+      infoTitle.textContent = defaultTitle;
+      infoText.innerHTML = defaultText;
+
+      infoImages.style.display = "none";
+      infoYears.style.display = "none";
+    }
 
     world.toggleControls(false)
     infoContainer.style.display = "block";
   }
+
 
   closeButton.addEventListener("click", () => {
     infoContainer.style.display = "none";
     world.toggleControls(true);
     world.setCameraPosition(4);
   })
-
 
 
   minimize.addEventListener("click", () => {

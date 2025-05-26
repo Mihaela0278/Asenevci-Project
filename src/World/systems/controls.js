@@ -8,7 +8,7 @@ export function createControls(camera, canvas) {
   controls.minDistance = 0.3;
   controls.maxDistance = 4;
 
-  controls.enablePan = false;
+  controls.enablePan = false; // за спиране на взаимодействие с десния бутон на мишката
 
   return controls;
 }

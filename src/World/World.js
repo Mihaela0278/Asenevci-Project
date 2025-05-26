@@ -98,7 +98,6 @@ export class World {
     const directions = [
       new THREE.Vector3(-0.64, 0.26, -0.96), // Third Horsemen Цар Петър
 
-
       new THREE.Vector3(-0.51, 0.19, 0.29), // Second Horsemen Цар Асен
 
       new THREE.Vector3(0.29, 0.32, -0.40), // Fourth Horsemen Цар Иван Асен II
@@ -115,9 +114,10 @@ export class World {
       animateVector(this.camera.position, positions[horsemanIndex], (newPos) => {
         this.camera.position.copy(newPos);
       }, 2)
+      
       animateVector(this.lookingAt, directions[horsemanIndex], (newPos) => {
         this.camera.lookAt(newPos)
-      }, 2)
+      }, 2.5)
 
       this.lookingAt = directions[horsemanIndex];
 
