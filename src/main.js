@@ -1,6 +1,6 @@
 import { World } from "./World/World";
 import * as THREE from 'three';
-import { DAFAULT_CAMERA_POSITION } from "./World/components/camera";
+import { DEFAULT_CAMERA_POSITION } from "./World/components/camera";
 
 // Array of hormsement texts
 const horsemenInfo = {
@@ -60,31 +60,6 @@ const horsemenInfo = {
 
 }
 
-// Array of horsement texts
-/*
- hosrsemenText = [
- {
-  title: "Ivan",
-  info: "Ivan e car"
- },
- {
-  title: "Ivan2",
-  info: "Ivan2 e car"
- }
-  ]
-*/
-
-/*
-dopulnitelno info za onclick na koito i da e horsemen
-() => {
-  isCardVisible = true;
-  cardTitle.innterHtml(horsementText[i].title)
-    world.setCameraPosition(0)
-  
-}
-*/
-
-
 function main() {
   const container = document.querySelector('#scene-container');
   const world = new World(container);
@@ -107,35 +82,11 @@ function main() {
   const defaultTitle = infoTitle.textContent;
   const defaultText = infoText.innerHTML;
 
-  // let isVisible = true;
-
-  // document select card
-  // document select card title (maybe h2)
-  // document select card info text (may p)
-
-
-  // document select X Button
-
-  // x button onclick is visible stava false
-
-  // const changeVisibility = () => {
-  //   isVisible = !isVisible;
-
-  //   if (isVisible) {
-  //     fourthHorsemen.style.display = 'block';
-  //   } else {
-  //     fourthHorsemen.style.display = 'none';
-
-  //   }
-  // }
   const maximizeContent = () => {
     infoContainer.style.transform = 'translateY(0)'
   }
 
   firstHorsemen.addEventListener("click", () => {
-    // isvible = true
-    // document.querySelector('h1').innerHTML = "Obicham Mishel aka Shoshkata"
-    // changeVisibility()
     world.setCameraPosition(0);
     showInfo("horsemen1");
   });
